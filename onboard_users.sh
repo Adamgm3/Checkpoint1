@@ -37,7 +37,7 @@ while IFS=',' read -r username groupname shell; do
         sudo usermod -s "$shell" "$username" && log_message "Set $username's shell to $shell"
 
         # Check if a group exists
-        getent group "$groupname" &>/dev/null && log_message "Group $groupname already exists" || sudo groupadd "$groupname" log_message "Added group: $groupname"
+        getent group "$groupname" &>/dev/null && log_message "Group $groupname already exists" || sudo groupadd "$groupname" && log_message "Added group: $groupname"
 
         # Add a user to a group (supplementary, non-destructive)
         sudo usermod -aG "$groupname" "$username" && log_message "Added user $username to group $groupname"
